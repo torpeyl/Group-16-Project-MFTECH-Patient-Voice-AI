@@ -5,16 +5,16 @@ In order to use change the directory to the location of your downloaded data.
 
 import os
 import re
-directory = '../data'
+
+directory = 'data'
 
 file_names = []
 
 for filename in os.listdir(directory):
     f = os.path.join(directory, filename)
-    # checking if it is a file
     if os.path.isfile(f):
         if f[-8:] == 'info.txt':
-            file_names.append(f[8:])
+            file_names.append(f[len(directory) + 1:])
 
 info_dict = {}
 for file in file_names:
