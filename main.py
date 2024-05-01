@@ -23,7 +23,7 @@ for file in file_names:
         condition = lambda line: re.sub(r'[\t]', ':', line) if ':' not in line else line
         cleaned_lines = [condition(line) for line in lines]
         cleaned_lines = [re.sub(r'[\n\t]', '', s) for s in cleaned_lines]
-        cleaned_lines= [item for item in cleaned_lines if item != ':']
+        cleaned_lines= [item.strip() for item in cleaned_lines if item != ':']
         for pair in cleaned_lines:
             li = pair.split(':')
             # check if key exists, if not create set for that and add first value
@@ -36,3 +36,6 @@ for file in file_names:
 keys = ['ID', 'Age']        # NOTE THAT THE DATA FIELDS IN THIS LIST WILL NOT BE PRINTED TO 
                             # THE TERMINAL, HOWEVER THEY ARE STILL PRESENT IN THE DATA 
 print({x: info_dict[x] for x in info_dict if x not in keys})
+
+all_keys = info_dict.keys()
+# print(all_keys)
