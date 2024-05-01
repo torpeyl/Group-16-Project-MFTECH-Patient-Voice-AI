@@ -8,5 +8,5 @@ with open(filename) as f:
     li = [re.sub(r'[\n]', '', s) for s in li]
     li = [float(i) for i in li]
 
-sd.play(li, 8000)
-sd.wait()
+sd.play(li, 8000, blocking=True, loop=False)
+sd.stop()
