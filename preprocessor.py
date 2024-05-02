@@ -30,7 +30,7 @@ class preprocessor:
             cleaned_lines = [condition(line) for line in lines]
             cleaned_lines = [re.sub(r'[\n\t]', '', s) for s in cleaned_lines]
             cleaned_lines= [item for item in cleaned_lines if item != ':']
-            numerical_fields = ['Number of cigarettes smoked per day', 'Number of glasses containing alcoholic beverage drinked in a day', 'Amount of water\'s litres drink every day', 'Amount of glasses drinked in a day', 'Number of cups of coffee drinked in a day', 'Gramme of chocolate eaten in  a day', 'Gramme of soft cheese eaten in a day', 'Number of citrus fruits eaten in a day']
+            numerical_fields = ['Age', 'Voice Handicap Index (VHI) Score', 'Reflux Symptom Index (RSI) Score', 'Number of cigarettes smoked per day', 'Number of glasses containing alcoholic beverage drinked in a day', 'Amount of water\'s litres drink every day', 'Amount of glasses drinked in a day', 'Number of cups of coffee drinked in a day', 'Gramme of chocolate eaten in  a day', 'Gramme of soft cheese eaten in a day', 'Number of citrus fruits eaten in a day']
             general_categorical = ['Carbonated beverages', 'Tomatoes', 'Coffee', 'Chocolate', 'Soft cheese', 'Citrus fruits']
             for pair in cleaned_lines:
                 li = pair.split(':')
