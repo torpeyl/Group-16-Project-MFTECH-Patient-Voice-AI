@@ -1,4 +1,3 @@
-# from IPython.display import display
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy
@@ -9,12 +8,6 @@ import os
 
 import wfdb
 directory = 'data'
-
-# define parameters
-SAMPLING_FREQUENCY = 8000   # Hz
-T_PERIOD = 1/SAMPLING_FREQUENCY
-N = SAMPLING_FREQUENCY*5
-GAUSSIAN_STD = 8  # standard deviation for Gaussian window in samples
 
 
 def get_audio_array(filename:str):
@@ -30,44 +23,53 @@ def plot_audio(filename:str):
     wfdb.plot_wfdb(record=record, title=filename)
 
 
-def init_SFT():
-    t_x = np.arange(N) * T_PERIOD  # time indexes
-    f_i = 5e-3*(t_x - t_x[N // 3])**2 + 1  # sample frequencies
+class stft:
+    def __init__(self):
+        self.f_s = 8000   # sampling frequency (in Hz)
+        self.t_period = 1/self.f_s
+        self.n = self.f_s*5
+        self.std = 8  # standard deviation for Gaussian window in samples
 
-    window = gaussian(50, std=GAUSSIAN_STD, sym=True)  # symmetric Gaussian window
-    SFT = ShortTimeFFT(window, hop=10, fs=SAMPLING_FREQUENCY, mfft=200)
-    return t_x, f_i, SFT
+        self.t_x = np.arange(self.n) * self.t_period  # array of time indexes
+        self.f_i = 5e-3*(self.t_x - self.t_x[self.n // 3])**2 + 1  # array of sample frequencies
 
+        self.window = gaussian(50, std=self.std, sym=True)  # symmetric Gaussian window
+        self.SFT = ShortTimeFFT(self.window, hop=10, fs=self.f_s, mfft=200)
+        
+    def get_spectrogram(self, signal):
+        Sx = self.SFT.spectrogram(signal)     # spectrogram of x
+        return Sx
+    
+    def plot_spectrogram(self, signal, label):
+        Sx = self.get_spectrogram(signal)
 
-def get_spectrogram(SFT:ShortTimeFFT, filename:str):
-    x = np.squeeze(get_audio_array(filename))
-    Sx = SFT.spectrogram(x)     # spectrogram of x
-    return Sx
-
-
-def plot_spectrogram(t_x:np.ndarray, f_i:np.ndarray, Sx:np.ndarray, SFT:ShortTimeFFT, sample_label:str=""):
-    fig1, ax1 = plt.subplots(figsize=(6., 4.))  # enlarge plot a bit
-    t_lo, t_hi = SFT.extent(N)[:2]  # time range of plot
-    ax1.set_title(rf"Spectrogram {sample_label} ({SFT.m_num*SFT.T:g}$\,s$ Gaussian " +
-                rf"window, $\sigma_t={GAUSSIAN_STD*SFT.T:g}\,$s)")
-    ax1.set(xlabel=f"Time $t$ in seconds ({SFT.p_num(N)} slices, " +
-                rf"$\Delta t = {SFT.delta_t:g}\,$s)",
-            ylabel=f"Freq. $f$ in Hz ({SFT.f_pts} bins, " +
-                rf"$\Delta f = {SFT.delta_f:g}\,$Hz)",
-            xlim=(t_lo, t_hi))
-    Sx_dB = 10 * np.log10(np.fmax(Sx, 1e-4))  # limit range to -40 dB
-    im1 = ax1.imshow(Sx_dB, origin='lower', aspect='auto',
-                    extent=SFT.extent(N), cmap='magma')
-    ax1.plot(t_x, f_i, 'g--', alpha=.5, label='$f_i(t)$')
-    fig1.colorbar(im1, label='Power Spectral Density ' +
-                            r"$20\,\log_{10}|S_x(t, f)|$ in dB")
-    plt.show()
+        fig1, ax1 = plt.subplots(figsize=(7., 4.))  # enlarge plot a bit
+        t_lo, t_hi = self.SFT.extent(self.n)[:2]  # time range of plot
+        ax1.set_title(rf"Spectrogram {label} ({self.SFT.m_num*self.SFT.T:g}$\,s$ Gaussian " +
+                    rf"window, $\sigma_t={self.std*self.SFT.T:g}\,$s)")
+        ax1.set(xlabel=f"Time $t$ in seconds ({self.SFT.p_num(self.n)} slices, " +
+                    rf"$\Delta t = {self.SFT.delta_t:g}\,$s)",
+                ylabel=f"Freq. $f$ in Hz ({self.SFT.f_pts} bins, " +
+                    rf"$\Delta f = {self.SFT.delta_f:g}\,$Hz)",
+                xlim=(t_lo, t_hi))
+        Sx_dB = 10 * np.log10(np.fmax(Sx, 1e-4))  # limit range to -40 dB
+        im1 = ax1.imshow(Sx_dB, origin='lower', aspect='auto',
+                        extent=self.SFT.extent(self.n), cmap='magma')
+        ax1.plot(self.t_x, self.f_i, 'g--', alpha=.5, label='$f_i(t)$')
+        fig1.colorbar(im1, label='Power Spectral Density ' +
+                                r"$20\,\log_{10}|S_x(t, f)|$ in dB")
+        
+        plt.savefig(rf"img/{label}.png")
 
 
 if __name__ == "__main__":
     filename = "voice001"
+    x = np.squeeze(get_audio_array(filename))
 
-    t_x, f_i, SFT = init_SFT()
-    Sx = get_spectrogram(SFT, filename)
-    plot_spectrogram(t_x, f_i, Sx, SFT, filename)
+    filename2 = "voice100"
+    x2 = np.squeeze(get_audio_array(filename2))
+
+    SFT = stft()
+    SFT.plot_spectrogram(x,filename)
+    SFT.plot_spectrogram(x2,filename2)
 
