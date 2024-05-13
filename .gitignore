@@ -1,3 +1,7 @@
 data
+data_svd
 img
 __pycache__
+gmms
+features.npy
+test.py

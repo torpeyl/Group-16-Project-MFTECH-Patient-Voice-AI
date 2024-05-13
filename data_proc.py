@@ -3,6 +3,7 @@ import numpy as np
 import scipy
 from scipy.signal import ShortTimeFFT
 from scipy.signal.windows import gaussian
+import librosa
 
 import os
 
@@ -63,13 +64,24 @@ class stft:
 
 
 if __name__ == "__main__":
-    filename = "voice001"
+    filename = "voice003"
     x = np.squeeze(get_audio_array(filename))
 
-    filename2 = "voice100"
-    x2 = np.squeeze(get_audio_array(filename2))
+    # filename2 = "voice100"
+    # x2 = np.squeeze(get_audio_array(filename2))
 
-    SFT = stft()
-    SFT.plot_spectrogram(x,filename)
-    SFT.plot_spectrogram(x2,filename2)
+    # SFT = stft()
+    # SFT.plot_spectrogram(x,filename)
+    # SFT.plot_spectrogram(x2,filename2)
+
+    signal = x
+    sr = 8000   # sampling rate
+    mfccs = librosa.feature.mfcc(y=signal, n_mfcc=20, sr=sr)
+    print(mfccs.shape)
+    plt.figure(figsize=(25, 10))
+    librosa.display.specshow(mfccs, 
+                            x_axis="time", 
+                            sr=sr)
+    plt.colorbar(format="%+2.f")
+    plt.savefig(filename+".png")
 
