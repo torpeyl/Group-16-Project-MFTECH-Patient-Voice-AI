@@ -7,7 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1WPiwOGHmyDxtpGKZz9v0NMboBZQu5Nb9
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
 import os
 import cv2
