@@ -25,8 +25,8 @@ def plot_audio(filename:str):
 
 
 class stft:
-    def __init__(self):
-        self.f_s = 8000   # sampling frequency (in Hz)
+    def __init__(self, sr=8000):
+        self.f_s = sr   # sampling frequency (in Hz)
         self.t_period = 1/self.f_s
         self.n = self.f_s*5
         self.std = 8  # standard deviation for Gaussian window in samples

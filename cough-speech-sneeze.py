@@ -1,7 +1,3 @@
-"""
-This program is applied to the Saarbruecken Voice Database (SVD).
-"""
-
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,13 +6,14 @@ import librosa
 from collections import defaultdict
 from sklearn.mixture import GaussianMixture
 from data_proc import stft
-
-# import audiofile
+from plotter import TimescalePlotter
 import opensmile
+import math
 
-directory = 'data_svd/male'       # GDM
-# subdirectory = 'healthy'
-filename_suffix = '-a_n.wav'
+
+directory = "data\\cough-speech-sneeze"
+classes = ["coughing", "sneezing", "speech", "silence"]
+
 
 smile_functionals = opensmile.Smile(
         feature_set=opensmile.FeatureSet.eGeMAPSv02,
@@ -27,7 +24,7 @@ smile_llds = opensmile.Smile(
         feature_level=opensmile.FeatureLevel.LowLevelDescriptors,
     )
 
-class voice_svd:
+class voice_css:
     def __init__(self, filename, label):
         self.filename = filename
         self.label = label
@@ -43,11 +40,16 @@ class voice_svd:
 
         # define the feature vector for classification use
         self.N = 5      # stride size
-        self.feature = self.get_features_lld()
-        # self.feature = self.get_features_functional()
+        self.frame_size = 0.02*self.N   # in seconds
+        self.window_duration = 1.0      # in seconds
+        self.window_size = int(self.window_duration*self.sample_rate)
+        self.audio_duration = len(self.audio)/self.sample_rate
+        self.window_num = int(self.audio_duration/self.window_duration)
+        self.feature = self._get_features_functional()
+        # self.feature = self._get_features_lld()
 
     
-    def filter_feature(self, x):     # moving average with stride=N to reduce dimensionality
+    def _filter_feature(self, x):     # moving average with stride=N to reduce dimensionality
         if len(x)%2 != 0:   # odd
             x = x[:(len(x)-1)]
         new_x = np.reshape(x,(int(len(x)/2),2))
@@ -55,51 +57,56 @@ class voice_svd:
         z2 = np.add.reduceat(new_x[:,1], np.arange(0, len(new_x[:,1]), self.N))/self.N
         z = np.vstack((z1,z2))
         return z
-    
+
     # Feature Level: Low Level Descriptors
-    def get_features_lld(self):
+    def _get_features_lld(self):
         llds = smile_llds.process_signal(self.audio,self.sample_rate)
 
-        # spectral features
-        mfcc1 = self.filter_feature(np.array(llds['mfcc1_sma3']))
-        flux = self.filter_feature(np.array(llds['spectralFlux_sma3']))
-        # h1_a3 = self.filter_feature(np.array(llds['logRelF0-H1-A3_sma3nz']))
-        # prosodic features
-        loudness = self.filter_feature(np.array(llds['Loudness_sma3']))
-        pitch = self.filter_feature(np.array(llds['F0semitoneFrom27.5Hz_sma3nz']))     # F0 envelope
-        shimmer = self.filter_feature(np.array(llds['shimmerLocaldB_sma3nz']))
-        jitter = self.filter_feature(np.array(llds['jitterLocal_sma3nz']))
-        f1freq = self.filter_feature(np.array(llds['F1frequency_sma3nz']))
-        # f1band = self.filter_feature(np.array(llds['F1bandwidth_sma3nz']))
-        # f1amp = self.filter_feature(np.array(llds['F1amplitudeLogRelF0_sma3nz']))
-        f2freq = self.filter_feature(np.array(llds['F2frequency_sma3nz']))
-        # f3freq = self.filter_feature(np.array(llds['F3frequency_sma3nz']))
+        ## spectral features
+        mfcc1 = self._filter_feature(np.array(llds['mfcc1_sma3']))
+        flux = self._filter_feature(np.array(llds['spectralFlux_sma3']))
+        # h1_a3 = self._filter_feature(np.array(llds['logRelF0-H1-A3_sma3nz']))
+        hammarberg =  self._filter_feature(np.array(llds['hammarbergIndex_sma3']))
 
-        # create the feature vector
+        ## prosodic features
+        loudness = self._filter_feature(np.array(llds['Loudness_sma3']))
+        pitch = self._filter_feature(np.array(llds['F0semitoneFrom27.5Hz_sma3nz']))     # F0 envelope
+        shimmer = self._filter_feature(np.array(llds['shimmerLocaldB_sma3nz']))
+        jitter = self._filter_feature(np.array(llds['jitterLocal_sma3nz']))
+        hnr =  self._filter_feature(np.array(llds['HNRdBACF_sma3nz']))
+        f1freq = self._filter_feature(np.array(llds['F1frequency_sma3nz']))
+        # f1band = self._filter_feature(np.array(llds['F1bandwidth_sma3nz']))
+        # f1amp = self._filter_feature(np.array(llds['F1amplitudeLogRelF0_sma3nz']))
+        f2freq = self._filter_feature(np.array(llds['F2frequency_sma3nz']))
+        # f3freq = self._filter_feature(np.array(llds['F3frequency_sma3nz']))
+
+        ## create the feature vector
         feature = np.vstack((
             mfcc1,
             flux,          # 
             # h1_a3,
+            # hammarberg,
             loudness,
             pitch,          #
             jitter,
             shimmer,       # 
-            f1freq,
+            # hnr,
+            # f1freq,
             # f1band,
             # f1amp,
-            f2freq,
+            # f2freq,
             # f3freq,
             ))
         return feature.transpose()
 
     # Feature Level: Functionals
-    def get_features_functional(self):
+    def _get_features_functional(self):
         functionals = smile_functionals.process_signal(self.audio,self.sample_rate)
 
-        # spectral features
+        ## spectral features
         flux_mean = float(functionals['spectralFlux_sma3_amean'].iloc[0])
         flux_std = float(functionals['spectralFlux_sma3_stddevNorm'].iloc[0])
-        # prosodic features
+        ## prosodic features
         loudness_mean = float(functionals['loudness_sma3_amean'].iloc[0])
         loudness_std = float(functionals['loudness_sma3_stddevNorm'].iloc[0])
         pitch_mean = float(functionals['F0semitoneFrom27.5Hz_sma3nz_amean'].iloc[0])
@@ -108,10 +115,12 @@ class voice_svd:
         shimmer_std = float(functionals['shimmerLocaldB_sma3nz_stddevNorm'].iloc[0])
         jitter_mean = float(functionals['jitterLocal_sma3nz_amean'].iloc[0])
         jitter_std = float(functionals['jitterLocal_sma3nz_stddevNorm'].iloc[0])
+        hnr_mean = float(functionals['HNRdBACF_sma3nz_amean'].iloc[0])
+        hnr_std = float(functionals['HNRdBACF_sma3nz_stddevNorm'].iloc[0])
         f1freq_mean = float(functionals['F1frequency_sma3nz_amean'].iloc[0])
         f1freq_std = float(functionals['F1frequency_sma3nz_stddevNorm'].iloc[0])
-        # mfcc1_mean = float(functionals['mfcc1_sma3_amean'].iloc[0])
-        # mfcc1_std = float(functionals['mfcc1_sma3_stddevNorm'].iloc[0])
+        mfcc1_mean = float(functionals['mfcc1_sma3_amean'].iloc[0])
+        mfcc1_std = float(functionals['mfcc1_sma3_stddevNorm'].iloc[0])
         # mfcc2_mean = float(functionals['mfcc2_sma3_amean'].iloc[0])
         # mfcc2_std = float(functionals['mfcc2_sma3_stddevNorm'].iloc[0])
         # mfcc3_mean = float(functionals['mfcc3_sma3_amean'].iloc[0])
@@ -123,22 +132,24 @@ class voice_svd:
         # f3_mean = float(functionals['F3frequency_sma3nz_amean'].iloc[0])
         # f3_std = float(functionals['F3frequency_sma3nz_stddevNorm'].iloc[0])
 
-        # create the feature vector
+        ## create the feature vector
         feature = np.expand_dims([
             flux_mean,         #
             flux_std,          # 
-            loudness_mean,
-            loudness_std,
-            pitch_mean,
-            pitch_std,
-            jitter_mean,
-            jitter_std,       
-            shimmer_mean,      #
+            loudness_mean,     #
+            loudness_std,      #
+            # pitch_mean,
+            # pitch_std,
+            jitter_mean,       #
+            jitter_std,        #
+            # shimmer_mean,
             shimmer_std,       # 
-            f1freq_mean,
-            f1freq_std,
-            # mfcc1_mean,
-            # mfcc1_std,
+            # hnr_mean,
+            # hnr_std,
+            # f1freq_mean,
+            # f1freq_std,
+            mfcc1_mean,        #
+            mfcc1_std,         #
             # mfcc2_mean,
             # mfcc2_std,
             # mfcc3_mean,
@@ -152,6 +163,46 @@ class voice_svd:
             ], axis=0)
         return feature
 
+    # used for extracting features during predictions
+    def get_features_for_predict(self):
+        sections = np.array_split(self.audio, self.window_num)
+        feature_stack = []
+        for section in sections:
+            functionals = smile_functionals.process_signal(section,self.sample_rate)
+
+            ## spectral features
+            flux_mean = float(functionals['spectralFlux_sma3_amean'].iloc[0])
+            flux_std = float(functionals['spectralFlux_sma3_stddevNorm'].iloc[0])
+            mfcc1_mean = float(functionals['mfcc1_sma3_amean'].iloc[0])
+            mfcc1_std = float(functionals['mfcc1_sma3_stddevNorm'].iloc[0])
+
+            ## prosodic features
+            loudness_mean = float(functionals['loudness_sma3_amean'].iloc[0])
+            loudness_std = float(functionals['loudness_sma3_stddevNorm'].iloc[0])
+            # pitch_mean = float(functionals['F0semitoneFrom27.5Hz_sma3nz_amean'].iloc[0])
+            # pitch_std = float(functionals['F0semitoneFrom27.5Hz_sma3nz_stddevNorm'].iloc[0])
+            # shimmer_mean = float(functionals['shimmerLocaldB_sma3nz_amean'].iloc[0])
+            shimmer_std = float(functionals['shimmerLocaldB_sma3nz_stddevNorm'].iloc[0])
+            jitter_mean = float(functionals['jitterLocal_sma3nz_amean'].iloc[0])
+            jitter_std = float(functionals['jitterLocal_sma3nz_stddevNorm'].iloc[0])
+            
+            ## create the feature vector
+            feature = [
+                flux_mean,         #
+                flux_std,          # 
+                loudness_mean,     #
+                loudness_std,      #
+                # pitch_mean,
+                # pitch_std,
+                jitter_mean,       #
+                jitter_std,        #
+                # shimmer_mean,
+                shimmer_std,       # 
+                mfcc1_mean,        #
+                mfcc1_std,         #
+            ]
+            feature_stack.append(feature)
+        return (np.array(feature_stack))
 
     def get_mfccs(self, deltas=False):
         """
@@ -247,7 +298,7 @@ class gmm_classifier:
                 print("calculating audio features...")
                 allfeatures = defaultdict(list)
                 for filename,label in trainset:
-                    voice_sample = voice_svd(filename,label)
+                    voice_sample = voice_css(filename,label)
                     x = voice_sample.feature
                     # x = voice_sample.spectrogram      # takes very long
                     y = voice_sample.label
@@ -293,7 +344,7 @@ class gmm_classifier:
         return (data - self.means) * self.invstds
     
     def classify(self, filename, label):
-        voice_sample = voice_svd(filename, label)
+        voice_sample = voice_css(filename, label)
         feat = self._normalise(voice_sample.feature)
         # feat = self._normalise(voice_sample.spectrogram)    # takes very long
 
@@ -307,23 +358,46 @@ class gmm_classifier:
                 bestll = ll
                 bestlabel = label
         return bestlabel
+    
+    def classify_framewise(self, filename, label):
+        voice_sample = voice_css(filename, label)
+        feat = self._normalise(voice_sample.get_features_for_predict())
+        # feat = self._normalise(voice_sample.spectrogram)    # takes very long
+
+		## For each label GMM, find the overall log-likelihood and choose the strongest
+        predictions = []
+        for feat_i in feat:
+            bestlabel = ''
+            bestll = -9e99
+            feat_i = np.expand_dims(feat_i,axis=0)
+            for label, gmm in self.gmms.items():
+                ll = gmm.score_samples(feat_i)
+                ll = np.sum(ll)
+                if ll > bestll:
+                    bestll = ll
+                    bestlabel = label
+            predictions.append(bestlabel)
+        # generate timestamps
+        timestamps = np.linspace(start=0, stop=voice_sample.audio_duration, num=len(predictions))
+        return (timestamps,predictions)
 
 
-def demo(filename="2-a_n.wav", label="healthy"):
-    voice_sample = voice_svd(filename,label)
+def demo(filename="_0rh6xgxhrq_9.18-15.85.wav", label="coughing"):
+    voice_sample = voice_css(filename,label)
+    return voice_sample.feature
     # print(voice_sample.audio)
-    mfccs = voice_sample.mfccs.transpose()
-    sr = voice_sample.sample_rate
+    # mfccs = voice_sample.mfccs.transpose()
+    # sr = voice_sample.sample_rate
     # print(np.shape(mfccs))
     # print(sr)
 
-    # plot the MFCCs and save the image
-    plt.figure(figsize=(25, 10))
-    librosa.display.specshow(mfccs, 
-                            x_axis="time", 
-                            sr=sr)
-    plt.colorbar(format="%+2.f")
-    plt.savefig(filename+".png")
+    # # plot the MFCCs and save the image
+    # plt.figure(figsize=(25, 10))
+    # librosa.display.specshow(mfccs, 
+    #                         x_axis="time", 
+    #                         sr=sr)
+    # plt.colorbar(format="%+2.f")
+    # plt.savefig(filename+".png")
 
 
 # ------------------ dataset initialisation ---------------
@@ -336,6 +410,7 @@ def get_dataset(label):
         if os.path.isfile(f):
             file_names.append(filename)
     return file_names
+
 
 def split_dataset(dataset, train_percentage):
     trainset = []
@@ -436,56 +511,128 @@ def evaluate(y_gold, y_pred):
     return(confusion, norm_confusion, accuracy, p, r, f)
 
 
-if __name__ == "__main__":
-    # filename="1-a_n.wav" 
-    # label="healthy"
-    # voice_sample = voice_svd(filename,label)
-    # # spec = voice_sample.spectrogram
-    # # print(spec)
-    # # print(np.shape(spec))
+# ------------------ visualisation ---------------
+# (unused)
+def data_visualisation(dataset_size = 50):
+    visualise_set = defaultdict(list)
+    for label in classes:
+        data = get_dataset(label)
+        np.random.shuffle(data)          # shuffle the order
+        filenames = data[:dataset_size]    # only take the fixed size
+
+        for filename in filenames:
+            voice_sample = voice_css(filename,label)
+            x = voice_sample.feature
+            visualise_set[label].extend(x)
+
+        # visualise_set[label] = np.array(visualise_set[label])
+    # print(visualise_set)
+
+    # Create an array of indices for the x-axis
+    indices = np.arange(0, np.shape(visualise_set['coughing'])[1])
     
-    # print(voice_sample.feature)
-    # print(np.shape(voice_sample.feature))
-    # # print(np.shape(voice_sample.pitch))
-    # # print(np.shape(voice_sample.flux))
+    colour_code = {
+        "coughing":'red',
+        "sneezing":'blue',
+        "speech":'green'
+    }
+    index_code = {
+        "coughing":1,
+        "sneezing":2,
+        "speech":3
+    }
+
+    for i in indices:
+        # Create the plot
+        plt.figure(figsize=(10, 6))
+
+        # Plot the data points
+        for label in classes:
+            for feature_values in visualise_set[label]:
+                plt.scatter([index_code[label]], [feature_values[i]], color=colour_code[label])
+                # plt.scatter(indices, feature_values, color=colour_code[label], label=label)
+
+        # Add labels and title
+        plt.xlabel('Feature Index')
+        plt.ylabel('Value')
+        plt.title('Data visualisation')
+        # plt.legend()
+
+        # Display the plot
+        plt.savefig(f'{i}.png')
+
+
+if __name__ == "__main__":
+    # label = classes[2]
+    # filename = "_kwn1b3lq90_10.7-12.01.wav" #"_kwn1b3lq90_43.6-44.11.wav" #"_0rh6xgxhrq_9.18-15.85.wav"
+    # aud_path = os.path.join(directory, label, filename)
+    # print(aud_path)
+
+    # audio, sample_rate = librosa.load(aud_path)
+    # print(sample_rate)
+    # print(audio)
+
+    # print(get_dataset(label))
+
+    # print(label+" example: ")
+    # print(demo(filename, label))    
 
     #### --------------------------------------------------------------------------
 
     np.random.seed(42) 
-    dataset_size = 428     #600
+    dataset_size = 400
     train_percentage = 0.8
+    
+    color_map = {'coughing': 'red', 'sneezing': 'blue', 'speech': 'green', 'silence': 'grey'}
 
-    # initialise the dataset
-    print("GDM - male: ")
+    ## initialise the dataset
     dataset = {}
-    classes = ["healthy", "pathological"]
     for label in classes:
         data = get_dataset(label)
         np.random.shuffle(data)          # shuffle the order
         dataset[label] = data[:dataset_size]    # only take the fixed size
 
-    # split into train-test sets
+    ## split into train-test sets
     trainset, testset = split_dataset(dataset, train_percentage)
 
-    # train GMMs
-    gmm = gmm_classifier(trainset,load_gmms=False,load_features=False,n_components=8)
+    ## train GMMs
+    gmm = gmm_classifier(trainset,load_gmms=True,load_features=True,n_components=8)
 
-    # testing
-    y_gold = []
-    y_pred = []
-    for filename,label in testset:
-        gold_label = label
-        pred_label = gmm.classify(filename, label)
-        y_gold.append(gold_label)
-        y_pred.append(pred_label)
-    y_gold = np.array(y_gold)
-    y_pred = np.array(y_pred)
+    ## testing
+    # y_gold = []
+    # y_pred = []
+    # for filename,label in testset:
+    #     gold_label = label
+    #     pred_label = gmm.classify(filename, label)
+    #     y_gold.append(gold_label)
+    #     y_pred.append(pred_label)
+    # y_gold = np.array(y_gold)
+    # y_pred = np.array(y_pred)
 
-    # evaluate the results
-    confusion, norm_confusion, accuracy, p, r, f1 = evaluate(y_gold, y_pred)
-    print("confusion matrix:\n",confusion)
-    print("accuracy: ",accuracy)
-    print("precision: ",p)
-    print("recall: ",r)
-    print("f1 score: ",f1)
+    ## evaluate the results
+    # confusion, norm_confusion, accuracy, p, r, f1 = evaluate(y_gold, y_pred)
+    # print("confusion matrix:\n",confusion)
+    # print("accuracy: ",accuracy)
+    # print("precision: ",p)
+    # print("recall: ",r)
+    # print("f1 score: ",f1)
+
+    ## framewise prediction
+    label = "mixed" # classes[1]
+    filename = "qPo0bymnsh0.wav" #"_kwn1b3lq90_10.7-12.01.wav" #"_kwn1b3lq90_43.6-44.11.wav" #"_0rh6xgxhrq_9.18-15.85.wav"
+    timestamps, pred_labels = gmm.classify_framewise(filename, label)
+    # print(np.unique(pred_labels, return_counts=True))
     
+    print("gold: ", label)
+    # print(pred_labels)
+    plotter = TimescalePlotter(list(timestamps), pred_labels, filename, label)
+    plotter.plot()
+
+    ## framewise testing & plotting
+    # y_gold = []
+    # y_pred = []
+    # for filename,label in testset[:20]:
+    #     timestamps, pred_labels = gmm.classify_framewise(filename, label)
+    #     plotter = TimescalePlotter(list(timestamps), pred_labels, filename, label)
+    #     plotter.plot()
+
