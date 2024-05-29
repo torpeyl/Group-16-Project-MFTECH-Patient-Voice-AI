@@ -9,6 +9,7 @@ from data_proc import stft
 from plotter import TimescalePlotter
 import opensmile
 import math
+import scipy
 
 
 directory = "data\\cough-speech-sneeze"
@@ -381,6 +382,35 @@ class gmm_classifier:
         timestamps = np.linspace(start=0, stop=voice_sample.audio_duration, num=len(predictions))
         return (timestamps,predictions)
 
+    def classify_framewise_with_probs(self, filename, label):
+        voice_sample = voice_css(filename, label)
+        feat = self._normalise(voice_sample.get_features_for_predict())
+        # feat = self._normalise(voice_sample.spectrogram)    # takes very long
+
+		## For each label GMM, find the overall log-likelihood and choose the strongest
+        pred_labels = []
+        pred_probs = []
+        for feat_i in feat:
+            bestlabel = ''
+            bestll = -9e99
+            feat_i = np.expand_dims(feat_i,axis=0)
+            likelihoods = []
+            for label, gmm in self.gmms.items():
+                ll = gmm.score_samples(feat_i)
+                ll = math.exp(np.mean(ll))*255
+                likelihoods.append(ll)
+                if ll > bestll:
+                    bestll = ll
+                    bestlabel = label
+            # get probability of bestlabel
+            bestlabel_prob = max(scipy.special.softmax(likelihoods))
+            # put into the returning lists
+            pred_labels.append(bestlabel)
+            pred_probs.append(bestlabel_prob)
+        # generate timestamps
+        timestamps = np.linspace(start=0, stop=voice_sample.audio_duration, num=len(pred_labels))
+        return (timestamps,pred_labels,pred_probs)
+
 
 def demo(filename="_0rh6xgxhrq_9.18-15.85.wav", label="coughing"):
     voice_sample = voice_css(filename,label)
@@ -620,19 +650,21 @@ if __name__ == "__main__":
     ## framewise prediction
     label = "mixed" # classes[1]
     filename = "qPo0bymnsh0.wav" #"_kwn1b3lq90_10.7-12.01.wav" #"_kwn1b3lq90_43.6-44.11.wav" #"_0rh6xgxhrq_9.18-15.85.wav"
-    timestamps, pred_labels = gmm.classify_framewise(filename, label)
+    timestamps, pred_labels, pred_probs = gmm.classify_framewise_with_probs(filename, label)
     # print(np.unique(pred_labels, return_counts=True))
     
     print("gold: ", label)
     # print(pred_labels)
-    plotter = TimescalePlotter(list(timestamps), pred_labels, filename, label)
+    # print(pred_probs)
+    plotter = TimescalePlotter(list(timestamps), pred_labels, pred_probs, filename, label)
+    # print(plotter.intervals)
     plotter.plot()
 
     ## framewise testing & plotting
     # y_gold = []
     # y_pred = []
     # for filename,label in testset[:20]:
-    #     timestamps, pred_labels = gmm.classify_framewise(filename, label)
-    #     plotter = TimescalePlotter(list(timestamps), pred_labels, filename, label)
+    #     timestamps, pred_labels, pred_probs = gmm.classify_framewise_with_probs(filename, label)
+    #     plotter = TimescalePlotter(list(timestamps), pred_labels, pred_probs, filename, label)
     #     plotter.plot()
 
