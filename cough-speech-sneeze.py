@@ -42,7 +42,7 @@ class voice_css:
         # define the feature vector for classification use
         self.N = 5      # stride size
         self.frame_size = 0.02*self.N   # in seconds
-        self.window_duration = 1.0      # in seconds
+        self.window_duration = 1.0  # 0.3      # in seconds
         self.window_size = int(self.window_duration*self.sample_rate)
         self.audio_duration = len(self.audio)/self.sample_rate
         self.window_num = int(self.audio_duration/self.window_duration)
@@ -540,6 +540,28 @@ def evaluate(y_gold, y_pred):
     f, macro_f = f1_score(p, r)
     return(confusion, norm_confusion, accuracy, p, r, f)
 
+def evaluate_single(filename, label):
+    print("Evaluation of ", filename, " :")
+    timestamps, pred_labels, pred_probs = gmm.classify_framewise_with_probs(filename, label)
+    
+    print("gold: ", label)
+    # print(pred_labels)
+    # print(pred_probs)
+
+    ## plotting the classfication result
+    plotter = TimescalePlotter(list(timestamps), pred_labels, pred_probs, filename, label)
+    # print(plotter.intervals)
+    plotter.plot()
+
+    ## calculate label ratios as health indicators
+    classes, counts = np.unique(pred_labels,return_counts=True)
+    counts_dict = dict(zip(classes,counts))
+    speech_count = counts_dict['speech'] if 'speech' in counts_dict else 0
+    speech_ratio = speech_count/np.sum(counts)
+    disruption_ratio = (np.sum(counts) - speech_count) / np.sum(counts)
+    print("speech ratio: ", speech_ratio)
+    print("disruption ratio: ", disruption_ratio)
+    return speech_ratio,disruption_ratio
 
 # ------------------ visualisation ---------------
 # (unused)
@@ -610,7 +632,7 @@ if __name__ == "__main__":
     #### --------------------------------------------------------------------------
 
     np.random.seed(42) 
-    dataset_size = 400
+    dataset_size = 2871 # 400
     train_percentage = 0.8
     
     color_map = {'coughing': 'red', 'sneezing': 'blue', 'speech': 'green', 'silence': 'grey'}
@@ -648,17 +670,11 @@ if __name__ == "__main__":
     # print("f1 score: ",f1)
 
     ## framewise prediction
-    label = "mixed" # classes[1]
-    filename = "qPo0bymnsh0.wav" #"_kwn1b3lq90_10.7-12.01.wav" #"_kwn1b3lq90_43.6-44.11.wav" #"_0rh6xgxhrq_9.18-15.85.wav"
-    timestamps, pred_labels, pred_probs = gmm.classify_framewise_with_probs(filename, label)
-    # print(np.unique(pred_labels, return_counts=True))
-    
-    print("gold: ", label)
-    # print(pred_labels)
-    # print(pred_probs)
-    plotter = TimescalePlotter(list(timestamps), pred_labels, pred_probs, filename, label)
-    # print(plotter.intervals)
-    plotter.plot()
+    label = "throat_related" # "mixed" # classes[1]
+    filename = "HumanChoke_18339_1464631213.wav" #"qPo0bymnsh0.wav" ### #"_kwn1b3lq90_10.7-12.01.wav" #"_kwn1b3lq90_43.6-44.11.wav" #"_0rh6xgxhrq_9.18-15.85.wav"
+    # filenames = get_dataset(label)
+    # for filename in filenames:
+    evaluate_single(filename, label)
 
     ## framewise testing & plotting
     # y_gold = []
