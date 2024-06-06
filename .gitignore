@@ -1,5 +1,6 @@
 data
-VietMed
+VietMed/
 __pycache__
 cough-speech-sneeze/
 GUI_1.py
+recordings/
