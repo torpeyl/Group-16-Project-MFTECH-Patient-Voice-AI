@@ -1,0 +1,1314 @@
+{
+  "text": " There are so many stories from across the nation about how our measures have provided an economic lifeline to people in their hour of need. Like Luke, the owner of a local restaurant and bar in Chapel Hill Brisbane who said job keep our saved our bacon and Adrian, owner of an auto business. I like it, I've got some water. Two longest major. Like, sorry, my voice is gone now. Like Luke, the owner of a local restaurant and bar in Chapel Hill Brisbane who said job keep our saved our bacon and Adrian owner and auto business in Mooner Hobart who said job keep our is turned out to be a savior. I commend this statement to the House. I thank the treasuring of the call to the shallot treasuring response. Thanks for your much-step. You speak right. The treasuring is OK.",
+  "segments": [
+    {
+      "id": 0,
+      "seek": 0,
+      "start": 0.14,
+      "end": 6.74,
+      "text": " There are so many stories from across the nation about how our measures have provided an economic",
+      "tokens": [
+        50364,
+        821,
+        366,
+        370,
+        867,
+        3676,
+        490,
+        2108,
+        264,
+        4790,
+        466,
+        577,
+        527,
+        8000,
+        362,
+        5649,
+        364,
+        4836,
+        50700
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.26058274049025315,
+      "compression_ratio": 1.3850931677018634,
+      "no_speech_prob": 0.017391405999660492,
+      "confidence": 0.896,
+      "words": [
+        {
+          "text": "There",
+          "start": 0.14,
+          "end": 0.3,
+          "confidence": 0.948
+        },
+        {
+          "text": "are",
+          "start": 0.3,
+          "end": 0.58,
+          "confidence": 0.983
+        },
+        {
+          "text": "so",
+          "start": 0.58,
+          "end": 0.84,
+          "confidence": 0.997
+        },
+        {
+          "text": "many",
+          "start": 0.84,
+          "end": 1.04,
+          "confidence": 1.0
+        },
+        {
+          "text": "stories",
+          "start": 1.04,
+          "end": 1.72,
+          "confidence": 0.996
+        },
+        {
+          "text": "from",
+          "start": 1.72,
+          "end": 2.24,
+          "confidence": 0.957
+        },
+        {
+          "text": "across",
+          "start": 2.24,
+          "end": 2.64,
+          "confidence": 0.97
+        },
+        {
+          "text": "the",
+          "start": 2.64,
+          "end": 2.88,
+          "confidence": 0.991
+        },
+        {
+          "text": "nation",
+          "start": 2.88,
+          "end": 3.32,
+          "confidence": 0.982
+        },
+        {
+          "text": "about",
+          "start": 3.32,
+          "end": 4.02,
+          "confidence": 0.486
+        },
+        {
+          "text": "how",
+          "start": 4.02,
+          "end": 4.4,
+          "confidence": 0.965
+        },
+        {
+          "text": "our",
+          "start": 4.4,
+          "end": 4.64,
+          "confidence": 0.984
+        },
+        {
+          "text": "measures",
+          "start": 4.64,
+          "end": 5.08,
+          "confidence": 0.893
+        },
+        {
+          "text": "have",
+          "start": 5.08,
+          "end": 5.54,
+          "confidence": 0.98
+        },
+        {
+          "text": "provided",
+          "start": 5.54,
+          "end": 6.08,
+          "confidence": 0.953
+        },
+        {
+          "text": "an",
+          "start": 6.08,
+          "end": 6.34,
+          "confidence": 0.647
+        },
+        {
+          "text": "economic",
+          "start": 6.34,
+          "end": 6.74,
+          "confidence": 0.74
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "seek": 0,
+      "start": 6.86,
+      "end": 9.86,
+      "text": " lifeline to people in their hour of need.",
+      "tokens": [
+        50700,
+        4545,
+        5440,
+        281,
+        561,
+        294,
+        641,
+        1773,
+        295,
+        643,
+        13,
+        50902
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.26058274049025315,
+      "compression_ratio": 1.3850931677018634,
+      "no_speech_prob": 0.017391405999660492,
+      "confidence": 0.958,
+      "words": [
+        {
+          "text": "lifeline",
+          "start": 6.86,
+          "end": 7.46,
+          "confidence": 0.906
+        },
+        {
+          "text": "to",
+          "start": 7.46,
+          "end": 8.06,
+          "confidence": 0.951
+        },
+        {
+          "text": "people",
+          "start": 8.06,
+          "end": 8.48,
+          "confidence": 0.997
+        },
+        {
+          "text": "in",
+          "start": 8.48,
+          "end": 8.76,
+          "confidence": 0.998
+        },
+        {
+          "text": "their",
+          "start": 8.76,
+          "end": 9.08,
+          "confidence": 0.988
+        },
+        {
+          "text": "hour",
+          "start": 9.08,
+          "end": 9.3,
+          "confidence": 0.893
+        },
+        {
+          "text": "of",
+          "start": 9.3,
+          "end": 9.56,
+          "confidence": 0.997
+        },
+        {
+          "text": "need.",
+          "start": 9.56,
+          "end": 9.86,
+          "confidence": 0.998
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "seek": 0,
+      "start": 11.82,
+      "end": 18.02,
+      "text": " Like Luke, the owner of a local restaurant and bar in Chapel Hill Brisbane who said",
+      "tokens": [
+        50902,
+        1743,
+        13044,
+        11,
+        264,
+        7289,
+        295,
+        257,
+        2654,
+        6383,
+        293,
+        2159,
+        294,
+        48203,
+        9109,
+        32222,
+        567,
+        848,
+        51262
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.26058274049025315,
+      "compression_ratio": 1.3850931677018634,
+      "no_speech_prob": 0.017391405999660492,
+      "confidence": 0.84,
+      "words": [
+        {
+          "text": "Like",
+          "start": 11.82,
+          "end": 12.16,
+          "confidence": 0.886
+        },
+        {
+          "text": "Luke,",
+          "start": 12.16,
+          "end": 12.74,
+          "confidence": 0.964
+        },
+        {
+          "text": "the",
+          "start": 13.46,
+          "end": 13.72,
+          "confidence": 0.964
+        },
+        {
+          "text": "owner",
+          "start": 13.72,
+          "end": 14.0,
+          "confidence": 0.969
+        },
+        {
+          "text": "of",
+          "start": 14.0,
+          "end": 14.22,
+          "confidence": 0.998
+        },
+        {
+          "text": "a",
+          "start": 14.22,
+          "end": 14.3,
+          "confidence": 0.988
+        },
+        {
+          "text": "local",
+          "start": 14.3,
+          "end": 14.64,
+          "confidence": 0.996
+        },
+        {
+          "text": "restaurant",
+          "start": 14.64,
+          "end": 15.12,
+          "confidence": 0.952
+        },
+        {
+          "text": "and",
+          "start": 15.12,
+          "end": 15.68,
+          "confidence": 0.795
+        },
+        {
+          "text": "bar",
+          "start": 15.68,
+          "end": 15.88,
+          "confidence": 0.819
+        },
+        {
+          "text": "in",
+          "start": 15.88,
+          "end": 16.08,
+          "confidence": 0.602
+        },
+        {
+          "text": "Chapel",
+          "start": 16.08,
+          "end": 16.38,
+          "confidence": 0.69
+        },
+        {
+          "text": "Hill",
+          "start": 16.38,
+          "end": 16.58,
+          "confidence": 0.977
+        },
+        {
+          "text": "Brisbane",
+          "start": 16.58,
+          "end": 17.0,
+          "confidence": 0.604
+        },
+        {
+          "text": "who",
+          "start": 17.0,
+          "end": 17.84,
+          "confidence": 0.522
+        },
+        {
+          "text": "said",
+          "start": 17.84,
+          "end": 18.02,
+          "confidence": 0.979
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "seek": 1796,
+      "start": 18.02,
+      "end": 24.0,
+      "text": " job keep our saved our bacon and Adrian, owner of an auto business.",
+      "tokens": [
+        50364,
+        1691,
+        1066,
+        527,
+        6624,
+        527,
+        16400,
+        293,
+        31746,
+        11,
+        7289,
+        295,
+        364,
+        8399,
+        1606,
+        13,
+        50714
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.8462680710686578,
+      "compression_ratio": 1.0,
+      "no_speech_prob": 0.15341554582118988,
+      "confidence": 0.605,
+      "words": [
+        {
+          "text": "job",
+          "start": 18.02,
+          "end": 18.32,
+          "confidence": 0.295
+        },
+        {
+          "text": "keep",
+          "start": 18.32,
+          "end": 18.62,
+          "confidence": 0.337
+        },
+        {
+          "text": "our",
+          "start": 18.62,
+          "end": 18.9,
+          "confidence": 0.367
+        },
+        {
+          "text": "saved",
+          "start": 18.9,
+          "end": 19.22,
+          "confidence": 0.84
+        },
+        {
+          "text": "our",
+          "start": 19.22,
+          "end": 19.38,
+          "confidence": 0.856
+        },
+        {
+          "text": "bacon",
+          "start": 19.38,
+          "end": 20.04,
+          "confidence": 0.83
+        },
+        {
+          "text": "and",
+          "start": 20.04,
+          "end": 21.88,
+          "confidence": 0.452
+        },
+        {
+          "text": "Adrian,",
+          "start": 21.88,
+          "end": 22.34,
+          "confidence": 0.737
+        },
+        {
+          "text": "owner",
+          "start": 23.02,
+          "end": 23.12,
+          "confidence": 0.9
+        },
+        {
+          "text": "of",
+          "start": 23.12,
+          "end": 23.24,
+          "confidence": 0.987
+        },
+        {
+          "text": "an",
+          "start": 23.24,
+          "end": 23.36,
+          "confidence": 0.983
+        },
+        {
+          "text": "auto",
+          "start": 23.36,
+          "end": 23.52,
+          "confidence": 0.248
+        },
+        {
+          "text": "business.",
+          "start": 23.52,
+          "end": 24.0,
+          "confidence": 0.934
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "seek": 4796,
+      "start": 48.02,
+      "end": 49.5,
+      "text": " I like it, I've got some water.",
+      "tokens": [
+        50364,
+        286,
+        411,
+        309,
+        11,
+        286,
+        600,
+        658,
+        512,
+        1281,
+        13,
+        50614
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.8274644017219543,
+      "compression_ratio": 1.0365853658536586,
+      "no_speech_prob": 0.6024977564811707,
+      "confidence": 0.601,
+      "words": [
+        {
+          "text": "I",
+          "start": 48.02,
+          "end": 48.14,
+          "confidence": 0.151
+        },
+        {
+          "text": "like",
+          "start": 48.14,
+          "end": 48.34,
+          "confidence": 0.499
+        },
+        {
+          "text": "it,",
+          "start": 48.34,
+          "end": 48.42,
+          "confidence": 0.708
+        },
+        {
+          "text": "I've",
+          "start": 48.54,
+          "end": 48.56,
+          "confidence": 0.614
+        },
+        {
+          "text": "got",
+          "start": 48.56,
+          "end": 48.58,
+          "confidence": 0.993
+        },
+        {
+          "text": "some",
+          "start": 48.58,
+          "end": 48.76,
+          "confidence": 0.989
+        },
+        {
+          "text": "water.",
+          "start": 48.76,
+          "end": 49.5,
+          "confidence": 0.864
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "seek": 4796,
+      "start": 53.16,
+      "end": 54.04,
+      "text": " Two longest major.",
+      "tokens": [
+        50614,
+        4453,
+        15438,
+        2563,
+        13,
+        50714
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.8274644017219543,
+      "compression_ratio": 1.0365853658536586,
+      "no_speech_prob": 0.6024977564811707,
+      "confidence": 0.445,
+      "words": [
+        {
+          "text": "Two",
+          "start": 53.16,
+          "end": 53.34,
+          "confidence": 0.557
+        },
+        {
+          "text": "longest",
+          "start": 53.34,
+          "end": 53.64,
+          "confidence": 0.489
+        },
+        {
+          "text": "major.",
+          "start": 53.64,
+          "end": 54.04,
+          "confidence": 0.324
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "seek": 4796,
+      "start": 56.98,
+      "end": 65.4,
+      "text": " Like, sorry, my voice is gone now.",
+      "tokens": [
+        50714,
+        1743,
+        11,
+        2597,
+        11,
+        452,
+        3177,
+        307,
+        2780,
+        586,
+        13,
+        51614
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.8274644017219543,
+      "compression_ratio": 1.0365853658536586,
+      "no_speech_prob": 0.6024977564811707,
+      "confidence": 0.466,
+      "words": [
+        {
+          "text": "Like,",
+          "start": 56.98,
+          "end": 59.14,
+          "confidence": 0.539
+        },
+        {
+          "text": "sorry,",
+          "start": 59.44,
+          "end": 63.36,
+          "confidence": 0.351
+        },
+        {
+          "text": "my",
+          "start": 63.88,
+          "end": 64.0,
+          "confidence": 0.617
+        },
+        {
+          "text": "voice",
+          "start": 64.0,
+          "end": 64.26,
+          "confidence": 0.995
+        },
+        {
+          "text": "is",
+          "start": 64.26,
+          "end": 64.34,
+          "confidence": 0.237
+        },
+        {
+          "text": "gone",
+          "start": 64.34,
+          "end": 64.5,
+          "confidence": 0.311
+        },
+        {
+          "text": "now.",
+          "start": 64.5,
+          "end": 65.4,
+          "confidence": 0.558
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "seek": 7296,
+      "start": 74.62,
+      "end": 80.88,
+      "text": " Like Luke, the owner of a local restaurant and bar in Chapel Hill Brisbane who said job",
+      "tokens": [
+        50364,
+        1743,
+        13044,
+        11,
+        264,
+        7289,
+        295,
+        257,
+        2654,
+        6383,
+        293,
+        2159,
+        294,
+        48203,
+        9109,
+        32222,
+        567,
+        848,
+        1691,
+        50760
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.3666771383846507,
+      "compression_ratio": 1.6381909547738693,
+      "no_speech_prob": 0.24611172080039978,
+      "confidence": 0.897,
+      "words": [
+        {
+          "text": "Like",
+          "start": 74.62,
+          "end": 74.9,
+          "confidence": 0.788
+        },
+        {
+          "text": "Luke,",
+          "start": 74.9,
+          "end": 75.26,
+          "confidence": 0.977
+        },
+        {
+          "text": "the",
+          "start": 75.58,
+          "end": 75.6,
+          "confidence": 0.978
+        },
+        {
+          "text": "owner",
+          "start": 75.6,
+          "end": 75.86,
+          "confidence": 0.998
+        },
+        {
+          "text": "of",
+          "start": 75.86,
+          "end": 76.08,
+          "confidence": 0.996
+        },
+        {
+          "text": "a",
+          "start": 76.08,
+          "end": 76.16,
+          "confidence": 0.986
+        },
+        {
+          "text": "local",
+          "start": 76.16,
+          "end": 76.46,
+          "confidence": 0.998
+        },
+        {
+          "text": "restaurant",
+          "start": 76.46,
+          "end": 76.88,
+          "confidence": 0.997
+        },
+        {
+          "text": "and",
+          "start": 76.88,
+          "end": 77.2,
+          "confidence": 0.825
+        },
+        {
+          "text": "bar",
+          "start": 77.2,
+          "end": 77.42,
+          "confidence": 0.994
+        },
+        {
+          "text": "in",
+          "start": 77.42,
+          "end": 78.14,
+          "confidence": 0.946
+        },
+        {
+          "text": "Chapel",
+          "start": 78.14,
+          "end": 78.84,
+          "confidence": 0.97
+        },
+        {
+          "text": "Hill",
+          "start": 78.84,
+          "end": 79.08,
+          "confidence": 0.998
+        },
+        {
+          "text": "Brisbane",
+          "start": 79.08,
+          "end": 79.52,
+          "confidence": 0.867
+        },
+        {
+          "text": "who",
+          "start": 79.52,
+          "end": 80.5,
+          "confidence": 0.614
+        },
+        {
+          "text": "said",
+          "start": 80.5,
+          "end": 80.72,
+          "confidence": 0.981
+        },
+        {
+          "text": "job",
+          "start": 80.72,
+          "end": 80.88,
+          "confidence": 0.545
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "seek": 7296,
+      "start": 80.88,
+      "end": 86.8,
+      "text": " keep our saved our bacon and Adrian owner and auto business in Mooner Hobart who said job",
+      "tokens": [
+        50760,
+        1066,
+        527,
+        6624,
+        527,
+        16400,
+        293,
+        31746,
+        7289,
+        293,
+        8399,
+        1606,
+        294,
+        10714,
+        260,
+        22966,
+        446,
+        567,
+        848,
+        1691,
+        51056
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.3666771383846507,
+      "compression_ratio": 1.6381909547738693,
+      "no_speech_prob": 0.24611172080039978,
+      "confidence": 0.73,
+      "words": [
+        {
+          "text": "keep",
+          "start": 80.88,
+          "end": 81.26,
+          "confidence": 0.943
+        },
+        {
+          "text": "our",
+          "start": 81.26,
+          "end": 81.38,
+          "confidence": 0.555
+        },
+        {
+          "text": "saved",
+          "start": 81.38,
+          "end": 81.68,
+          "confidence": 0.982
+        },
+        {
+          "text": "our",
+          "start": 81.68,
+          "end": 81.82,
+          "confidence": 0.957
+        },
+        {
+          "text": "bacon",
+          "start": 81.82,
+          "end": 82.32,
+          "confidence": 0.997
+        },
+        {
+          "text": "and",
+          "start": 82.32,
+          "end": 82.8,
+          "confidence": 0.957
+        },
+        {
+          "text": "Adrian",
+          "start": 82.8,
+          "end": 83.26,
+          "confidence": 0.975
+        },
+        {
+          "text": "owner",
+          "start": 83.26,
+          "end": 83.66,
+          "confidence": 0.577
+        },
+        {
+          "text": "and",
+          "start": 83.66,
+          "end": 83.82,
+          "confidence": 0.705
+        },
+        {
+          "text": "auto",
+          "start": 83.82,
+          "end": 84.08,
+          "confidence": 0.672
+        },
+        {
+          "text": "business",
+          "start": 84.08,
+          "end": 84.54,
+          "confidence": 0.987
+        },
+        {
+          "text": "in",
+          "start": 84.54,
+          "end": 85.16,
+          "confidence": 0.762
+        },
+        {
+          "text": "Mooner",
+          "start": 85.16,
+          "end": 85.56,
+          "confidence": 0.315
+        },
+        {
+          "text": "Hobart",
+          "start": 85.56,
+          "end": 86.06,
+          "confidence": 0.784
+        },
+        {
+          "text": "who",
+          "start": 86.06,
+          "end": 86.44,
+          "confidence": 0.825
+        },
+        {
+          "text": "said",
+          "start": 86.44,
+          "end": 86.64,
+          "confidence": 0.99
+        },
+        {
+          "text": "job",
+          "start": 86.64,
+          "end": 86.8,
+          "confidence": 0.544
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "seek": 7296,
+      "start": 86.8,
+      "end": 89.44,
+      "text": " keep our is turned out to be a savior.",
+      "tokens": [
+        51056,
+        1066,
+        527,
+        307,
+        3574,
+        484,
+        281,
+        312,
+        257,
+        41327,
+        13,
+        51280
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.3666771383846507,
+      "compression_ratio": 1.6381909547738693,
+      "no_speech_prob": 0.24611172080039978,
+      "confidence": 0.736,
+      "words": [
+        {
+          "text": "keep",
+          "start": 86.8,
+          "end": 87.18,
+          "confidence": 0.714
+        },
+        {
+          "text": "our",
+          "start": 87.18,
+          "end": 87.58,
+          "confidence": 0.481
+        },
+        {
+          "text": "is",
+          "start": 87.58,
+          "end": 87.68,
+          "confidence": 0.324
+        },
+        {
+          "text": "turned",
+          "start": 87.68,
+          "end": 87.92,
+          "confidence": 0.985
+        },
+        {
+          "text": "out",
+          "start": 87.92,
+          "end": 88.3,
+          "confidence": 0.991
+        },
+        {
+          "text": "to",
+          "start": 88.3,
+          "end": 88.44,
+          "confidence": 0.995
+        },
+        {
+          "text": "be",
+          "start": 88.44,
+          "end": 88.74,
+          "confidence": 0.998
+        },
+        {
+          "text": "a",
+          "start": 88.74,
+          "end": 89.1,
+          "confidence": 0.981
+        },
+        {
+          "text": "savior.",
+          "start": 89.1,
+          "end": 89.44,
+          "confidence": 0.6
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "seek": 7296,
+      "start": 91.36,
+      "end": 93.78,
+      "text": " I commend this statement to the House.",
+      "tokens": [
+        51280,
+        286,
+        35987,
+        341,
+        5629,
+        281,
+        264,
+        4928,
+        13,
+        51408
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.3666771383846507,
+      "compression_ratio": 1.6381909547738693,
+      "no_speech_prob": 0.24611172080039978,
+      "confidence": 0.856,
+      "words": [
+        {
+          "text": "I",
+          "start": 91.36,
+          "end": 91.56,
+          "confidence": 0.948
+        },
+        {
+          "text": "commend",
+          "start": 91.56,
+          "end": 92.0,
+          "confidence": 0.999
+        },
+        {
+          "text": "this",
+          "start": 92.0,
+          "end": 92.58,
+          "confidence": 0.707
+        },
+        {
+          "text": "statement",
+          "start": 92.58,
+          "end": 93.02,
+          "confidence": 0.997
+        },
+        {
+          "text": "to",
+          "start": 93.02,
+          "end": 93.44,
+          "confidence": 0.991
+        },
+        {
+          "text": "the",
+          "start": 93.44,
+          "end": 93.58,
+          "confidence": 0.995
+        },
+        {
+          "text": "House.",
+          "start": 93.58,
+          "end": 93.78,
+          "confidence": 0.512
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "seek": 7296,
+      "start": 93.92,
+      "end": 98.1,
+      "text": " I thank the treasuring of the call to the shallot treasuring response.",
+      "tokens": [
+        51408,
+        286,
+        1309,
+        264,
+        2192,
+        296,
+        1345,
+        295,
+        264,
+        818,
+        281,
+        264,
+        4393,
+        310,
+        2192,
+        296,
+        1345,
+        4134,
+        13,
+        51826
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.3666771383846507,
+      "compression_ratio": 1.6381909547738693,
+      "no_speech_prob": 0.24611172080039978,
+      "confidence": 0.747,
+      "words": [
+        {
+          "text": "I",
+          "start": 93.92,
+          "end": 94.18,
+          "confidence": 0.775
+        },
+        {
+          "text": "thank",
+          "start": 94.18,
+          "end": 94.58,
+          "confidence": 0.827
+        },
+        {
+          "text": "the",
+          "start": 94.58,
+          "end": 94.74,
+          "confidence": 0.992
+        },
+        {
+          "text": "treasuring",
+          "start": 94.74,
+          "end": 95.22,
+          "confidence": 0.585
+        },
+        {
+          "text": "of",
+          "start": 95.22,
+          "end": 95.46,
+          "confidence": 0.982
+        },
+        {
+          "text": "the",
+          "start": 95.46,
+          "end": 95.62,
+          "confidence": 0.973
+        },
+        {
+          "text": "call",
+          "start": 95.62,
+          "end": 95.86,
+          "confidence": 0.952
+        },
+        {
+          "text": "to",
+          "start": 95.86,
+          "end": 96.28,
+          "confidence": 0.98
+        },
+        {
+          "text": "the",
+          "start": 96.28,
+          "end": 96.68,
+          "confidence": 0.981
+        },
+        {
+          "text": "shallot",
+          "start": 96.68,
+          "end": 97.18,
+          "confidence": 0.326
+        },
+        {
+          "text": "treasuring",
+          "start": 97.18,
+          "end": 97.58,
+          "confidence": 0.866
+        },
+        {
+          "text": "response.",
+          "start": 97.58,
+          "end": 98.1,
+          "confidence": 0.913
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "seek": 10220,
+      "start": 102.2,
+      "end": 102.99,
+      "text": " Thanks for your much-step.",
+      "tokens": [
+        50364,
+        2561,
+        337,
+        428,
+        709,
+        12,
+        16792,
+        13,
+        50414
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.5823246002197265,
+      "compression_ratio": 0.9154929577464789,
+      "no_speech_prob": 0.5969158411026001,
+      "confidence": 0.4,
+      "words": [
+        {
+          "text": "Thanks",
+          "start": 102.2,
+          "end": 102.46,
+          "confidence": 0.945
+        },
+        {
+          "text": "for",
+          "start": 102.46,
+          "end": 102.6,
+          "confidence": 0.586
+        },
+        {
+          "text": "your",
+          "start": 102.6,
+          "end": 102.8,
+          "confidence": 0.348
+        },
+        {
+          "text": "much-step.",
+          "start": 102.8,
+          "end": 102.99,
+          "confidence": 0.277
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "seek": 10220,
+      "start": 102.99,
+      "end": 103.54,
+      "text": " You speak right.",
+      "tokens": [
+        50414,
+        509,
+        1710,
+        558,
+        13,
+        50464
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.5823246002197265,
+      "compression_ratio": 0.9154929577464789,
+      "no_speech_prob": 0.5969158411026001,
+      "confidence": 0.707,
+      "words": [
+        {
+          "text": "You",
+          "start": 102.99,
+          "end": 103.24,
+          "confidence": 0.549
+        },
+        {
+          "text": "speak",
+          "start": 103.24,
+          "end": 103.38,
+          "confidence": 0.709
+        },
+        {
+          "text": "right.",
+          "start": 103.38,
+          "end": 103.54,
+          "confidence": 0.906
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "seek": 10220,
+      "start": 103.7,
+      "end": 104.48,
+      "text": " The treasuring is OK.",
+      "tokens": [
+        50464,
+        440,
+        2192,
+        296,
+        1345,
+        307,
+        2264,
+        13,
+        50478
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.5823246002197265,
+      "compression_ratio": 0.9154929577464789,
+      "no_speech_prob": 0.5969158411026001,
+      "confidence": 0.837,
+      "words": [
+        {
+          "text": "The",
+          "start": 103.7,
+          "end": 103.8,
+          "confidence": 0.99
+        },
+        {
+          "text": "treasuring",
+          "start": 103.8,
+          "end": 104.04,
+          "confidence": 0.883
+        },
+        {
+          "text": "is",
+          "start": 104.04,
+          "end": 104.2,
+          "confidence": 0.97
+        },
+        {
+          "text": "OK.",
+          "start": 104.2,
+          "end": 104.48,
+          "confidence": 0.52
+        }
+      ]
+    }
+  ],
+  "language": "en"
+}
