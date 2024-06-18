@@ -6,3 +6,4 @@ __pycache__
 gmms
 features.npy
 test.py
+results
