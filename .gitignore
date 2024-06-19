@@ -1,0 +1,7 @@
+# Ignore virtual environment directories
+.venv/
+Illness_Determination_Model/.venv/
+
+# Ignore other common files and directories
+__pycache__/
+Illness_Determination_Model/__pycache__/
