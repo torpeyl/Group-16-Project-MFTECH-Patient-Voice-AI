@@ -11,25 +11,25 @@ class GraphSAGE(torch.nn.Module):
         self.dropout = torch.nn.Dropout(dropout)
 
         # Input layer
-        self.convs.append(SAGEConv(in_channels, hidden_channels))
-        self.batch_norms.append(torch.nn.BatchNorm1d(hidden_channels))
+        self.convs.append(SAGEConv(in_channels, hidden_channels[0]))
+        self.batch_norms.append(torch.nn.BatchNorm1d(hidden_channels[0]))
 
         # Hidden layers
-        for _ in range(num_layers - 1):
-            self.convs.append(SAGEConv(hidden_channels, hidden_channels))
-            self.batch_norms.append(torch.nn.BatchNorm1d(hidden_channels))
+        for i in range(1, num_layers):
+            self.convs.append(SAGEConv(hidden_channels[i-1], hidden_channels[i]))
+            self.batch_norms.append(torch.nn.BatchNorm1d(hidden_channels[i]))
 
         # Output layer
-        self.convs.append(SAGEConv(hidden_channels, out_channels))
+        self.convs.append(SAGEConv(hidden_channels[-1], out_channels))
 
         # Emotion prediction layers
-        self.emotion_fc = torch.nn.Linear(hidden_channels, num_emotions)
+        self.emotion_fc = torch.nn.Linear(hidden_channels[-1], num_emotions)
         self.sigmoid = torch.nn.Sigmoid()
 
     def forward(self, data):
         x, edge_index, batch = data.x, data.edge_index, data.batch
 
-        # Apply GraphSAGE layers with BatchNorm1d (Prevent overfitting)
+        # Apply GraphSAGE layers with BatchNorm1d and RELU
         for conv, batch_norm in zip(self.convs, self.batch_norms):
             x = conv(x, edge_index)
             x = batch_norm(x)
@@ -38,13 +38,14 @@ class GraphSAGE(torch.nn.Module):
 
         # Global pooling
         x = global_mean_pool(x, batch)
-        
+
         # Emotion prediction
         emotion_logits = self.emotion_fc(x)
         emotion_probs = self.sigmoid(emotion_logits)
 
-        # Calculate "illness" score based on emotion probabilities
+        # Calculate illness score based on emotion probabilities 
         emotion_scores = torch.tensor([1, 0.5, 0.8, -1, 1, -0.8, 0], device=x.device)
         illness_scores = torch.matmul(emotion_probs, emotion_scores)
 
         return emotion_probs, illness_scores
+

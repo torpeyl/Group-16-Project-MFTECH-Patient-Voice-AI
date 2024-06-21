@@ -1,4 +1,5 @@
 import torch
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 
 emotion_mapping_score = {
@@ -8,7 +9,7 @@ emotion_mapping_score = {
     3: -1.0,   
     4: 1.0,   
     5: -0.8,   
-    6: 0    
+    6: 0.0    
 }
 
 
@@ -115,3 +116,43 @@ def test_first_10(model, test_loader, device):
 
             if count >= 10:
                 break
+
+
+def evaluate(model, val_loader, device, criterion_emotion, criterion_illness):
+    model.eval()
+    total_loss_emotion = 0.0
+    total_loss_illness = 0.0
+    all_preds = []
+    all_labels = []
+
+    with torch.no_grad():
+        for data in val_loader:
+            data = data.to(device)
+            emotion_probs, illness_score = model(data)
+
+            # Calculate losses
+            loss_emotion = criterion_emotion(emotion_probs, data.y)
+            emotion_labels = torch.tensor([emotion_mapping_score[label.item()] for label in data.y], device=device)
+            loss_illness = criterion_illness(illness_score, emotion_labels.float())
+
+            # Accumulate total losses
+            total_loss_emotion += loss_emotion.item()
+            total_loss_illness += loss_illness.item()
+
+            # Store predictions and labels for metric computation
+            preds = torch.argmax(emotion_probs, dim=1)
+            all_preds.extend(preds.cpu().numpy())
+            all_labels.extend(data.y.cpu().numpy())
+
+    # Compute average losses
+    avg_loss_emotion = total_loss_emotion / len(val_loader)
+    avg_loss_illness = total_loss_illness / len(val_loader)
+
+    # Compute metrics
+    accuracy = accuracy_score(all_labels, all_preds)
+    precision = precision_score(all_labels, all_preds, average='weighted')
+    recall = recall_score(all_labels, all_preds, average='weighted')
+    f1 = f1_score(all_labels, all_preds, average='weighted')
+
+    return avg_loss_emotion, avg_loss_illness, accuracy, precision, recall, f1
+
