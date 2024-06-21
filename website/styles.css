@@ -21,14 +21,18 @@ body {
     /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 }
 
+h3 {
+    text-align: center;
+}
+
 .recorder-section {
-    flex: 1 1 400px; /* Flexible width, with minimum width of 400px */
-    margin-right: 20px; /* Margin between sections */
-    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    flex: 1 1 400px;
+    margin-right: 20px;
+    background: rgba(255, 255, 255, 0.8);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Center align contents */
+    text-align: center;
 
     display: flex;
     flex-direction: column;
@@ -118,6 +122,13 @@ audio {
     color: #555;
 }
 
+#visualizer {
+    margin-top: 5px;
+    width: 80%;
+    height: 60px;
+    background-color: rgb(240, 240, 240);
+}
+
 .questionnaire-section {
     flex: 1 1 400px; /* Flexible width, with minimum width of 400px */
     margin-left: 20px; /* Margin between sections */
@@ -172,4 +183,8 @@ audio {
 
 #questionnaireForm button:hover {
     background-color: #0056b3;
+}
+
+#questionnaireForm input {
+    text-align: center;
 }
