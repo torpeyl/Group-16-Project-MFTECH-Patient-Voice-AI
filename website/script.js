@@ -6,6 +6,8 @@ const fileNameDisplay = document.getElementById('fileName');
 
 const pain_slider = document.getElementById("pain-level-slider");
 const pain_slider_label = document.getElementById("pain-level-label");
+const submit_btn = document.getElementById('submit-btn');
+const load_screen = document.getElementById('load-screen')
 
 let mediaRecorder;
 let audioChunks = [];
@@ -23,52 +25,12 @@ recordButton.addEventListener('click', async () => {
     if (isRecording) {      // Stop the recording
 
         mediaRecorder.stop();
-        // document.getElementById('stop').disabled = true;
-        // document.getElementById('play').disabled = false;
         recordButton.style.backgroundColor = 'red';
         recordButton.classList.remove('recording');
         cancelAnimationFrame(animationFrameId);             // Stop the visualizer drawing loop
 
     } else {                // Start recording
-        // const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        // mediaRecorder = new MediaRecorder(stream);
-
-        // mediaRecorder.ondataavailable = event1 => {
-        //     audioChunks.push(event1.data);
-        //     var reader = new FileReader();
-        //     reader.readAsArrayBuffer(event1.data);
-        //     reader.onloadend = async function(event) {
-        //         let arrayBuffer = reader.result;   
-        //         let uint8View = new Uint8Array(arrayBuffer);
-        //         console.log(uint8View)
-        //     }
-
-        // };
-
-        // // mediaRecorder.ondataavailable = async (blob) => console.log(await blob.data.arrayBuffer());
-
-        // mediaRecorder.onstop = () => {
-        //     const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-        //     const audioUrl = URL.createObjectURL(audioBlob);
-        //     audioPlayback.src = audioUrl;
-        //     audioChunks = [];
-        //     clearInterval(timer);
-        //     timerElement.textContent = '00:00.000';
-        //     isRecording = false;
-        // };
-
-        // mediaRecorder.start(100);
-        // startTime = Date.now();
-        // timer = setInterval(updateTimer, 10);
-        // recordButton.style.backgroundColor = 'darkred';
-        // recordButton.classList.add('recording');
-        // isRecording = true;
-
-        // // Clear file name display when recording starts
-        // fileNameDisplay.textContent = '';
-
-// -------------------------------------------------------------------------------------------------
-
+        timerElement.textContent = '00:00.000';
         navigator.mediaDevices.getUserMedia({ audio: true, video: false })
             .then(stream => {
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -90,14 +52,9 @@ recordButton.addEventListener('click', async () => {
                     audio = new Audio(audioUrl);
                     audioChunks = [];                       // Clear the audioChunks array for future recordings
                     clearInterval(timer);
-                    timerElement.textContent = '00:00.000';
                     isRecording = false;
                 };
                 mediaRecorder.start();
-
-                // document.getElementById('start').disabled = true;
-                // document.getElementById('stop').disabled = false;
-
                 startTime = Date.now();
                 timer = setInterval(updateTimer, 10);
                 recordButton.style.backgroundColor = 'darkred';
@@ -121,8 +78,13 @@ fileInput.addEventListener('change', event => {
         const audioUrl = URL.createObjectURL(file);
         audioPlayback.src = audioUrl;
         fileNameDisplay.textContent = `File: ${file.name}`;
+        timerElement.textContent = '00:00.000';
     }
 });
+
+submit_btn.addEventListener('click', event => {
+    load_screen.style.display = "flex";
+})
 
 function updateTimer() {
     const elapsedTime = Date.now() - startTime;
