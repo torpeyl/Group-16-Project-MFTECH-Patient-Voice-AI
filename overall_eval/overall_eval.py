@@ -12,12 +12,13 @@ def overall_eval(
         disease:str, 
         disease_prob:float, 
         consult_threshold:float=0.5, 
-        w_senti:float=0.5,      # essentially an OR gate
         treatment_threshold:float=0.5
         ):
     
-    # 0. scale the sentiment score onto the range [0,1]
-    sentiment_score = sentiment_score*0.5 + 0.5
+    # sentiment score input: [-1,1] => [max_positive, max_negative]
+    # scale onto the range [0,1] => sentiment: [max_positive (healthy), max_negative (sick)]
+    sentiment_score = (sentiment_score)*0.5 + 0.5
+    # disruption ratio input: [0,1] => [no_disruption (healthy), all_disruption (sick)]
 
     # 1. further consultation (yes or no)
     consult = bool(disease_prob < consult_threshold)
@@ -37,8 +38,8 @@ def overall_eval(
         elif emo_flag:      # sentiment score is more important
             w_senti = 0.7
         w_dis = 1-w_senti
-    # calculate treatment score
-    treatment_score = sentiment_score*w_senti + disruption_ratio*w_dis
+    # calculate treatment score (higher means more ill)
+    treatment_score = round(sentiment_score*w_senti + disruption_ratio*w_dis,3)
     print("treatment score:", treatment_score)
     # convert to yes or no
     treatment = bool(treatment_score > treatment_threshold)
@@ -47,6 +48,6 @@ def overall_eval(
 
 
 # example:
-test_result = overall_eval(0.8,0.3,"Asthma",0.91)
+test_result = overall_eval(sentiment_score=0.5,disruption_ratio=0.7,disease="Asthma",disease_prob=0.91)
 print(test_result)
 
