@@ -5,13 +5,13 @@ with open('./overall_eval/disruptions.json', 'r') as file1:
     disruptions_type = json.load(file1)
 with open('./overall_eval/emotions.json', 'r') as file2:
     emotions_type = json.load(file2)
-with open('./overall_eval/extremely_serious.json', 'r') as file1:
-    extremes = json.load(file1)
+with open('./overall_eval/extremely_serious.json', 'r') as file3:
+    extremes = json.load(file3)
 
 def overall_eval(
         sentiment_score:float, 
         disruption_ratio:float, 
-        disease:str, 
+        disease_index:str, 
         disease_prob:float, 
         consult_threshold:float=0.5, 
         treatment_threshold:float=0.5
@@ -23,11 +23,11 @@ def overall_eval(
     # disruption ratio input: [0,1] => [no_disruption (healthy), all_disruption (sick)]
 
     # 1. further consultation (yes or no)
-    consult = bool(disease_prob < consult_threshold) or (disease in extremes)
+    consult = bool(disease_prob < consult_threshold) or (disease_index in extremes)
 
     # 2. urgency for treatment
-    dis_flag = disease in disruptions_type
-    emo_flag = disease in emotions_type
+    dis_flag = disease_index in disruptions_type
+    emo_flag = disease_index in emotions_type
     # determine the weightings based on disease type
     if not (dis_flag or emo_flag):
         w_senti = 0.3
@@ -50,6 +50,6 @@ def overall_eval(
 
 
 # example:
-test_result = overall_eval(sentiment_score=0.5,disruption_ratio=0.7,disease="Asthma",disease_prob=0.49)
+test_result = overall_eval(sentiment_score=0.5,disruption_ratio=0.7,disease_index=str(76),disease_prob=0.49)
 print(test_result)
 
