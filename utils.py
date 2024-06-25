@@ -8,7 +8,7 @@ def create_pyg_data(df):
     for _, row in df.iterrows():
         x = torch.tensor(row['node_features'], dtype=torch.float)
 
-        # Convert adjacency matrix non-zero indices to a single numpy array
+        # Convert adjacency matrix non-zero indices to single numpy array
         adjacency_matrix = np.array(row['adjacency_matrix'].nonzero())
         edge_index = torch.tensor(adjacency_matrix, dtype=torch.long)
 

@@ -3,15 +3,14 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 
 
 emotion_mapping_score = {
-    0: 1.0,  
-    1: 0.5,  
-    2: 0.8,   
-    3: -1.0,   
-    4: 1.0,   
-    5: -0.8,   
-    6: 0.0    
+    0: 1.0,   # anger
+    1: 0.5,   # disgust
+    2: 0.8,   # fear
+    3: -1.0,  # happiness
+    4: 1.0,   # sadness
+    5: -0.8,  # surprise
+    6: 0.0    # neutral
 }
-
 
 def train_ill(model, optimizer, train_loader, device, criterion_emotion, criterion_illness):
     model.train()

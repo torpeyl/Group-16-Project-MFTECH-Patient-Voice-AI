@@ -80,7 +80,7 @@ criterion_illness = torch.nn.MSELoss()
 #     print(f'Epoch {epoch}, Train Loss Emotion: {train_loss_emotion:.4f}, Train Loss Illness: {train_loss_illness:.4f}')
 
 
-# # Testing the first 10 samples
+# Testing the first 10 samples
 # test_first_10(model, test_loader, device)
 # test_accuracy, _ = test(model, test_loader, device)
 

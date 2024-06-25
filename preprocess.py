@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from scipy.fftpack import fft
 
 class Preprocess:
-    def __init__(self, directory, pre_emphasis_coefficient=0.97, apply_compression=True):
+    def __init__(self, directory=None, pre_emphasis_coefficient=0.97, apply_compression=True):
         self.directory = directory
         self.pre_emphasis_coefficient = pre_emphasis_coefficient
         self.apply_compression = apply_compression
@@ -113,7 +113,6 @@ class Preprocess:
 
         self.df = pd.DataFrame(data)
         self.original_data = original_data
-        print(len(data))
 
     def one_hot_encode_emotions(self):
         if 'emotion' in self.df.columns:
@@ -123,5 +122,17 @@ class Preprocess:
         else:
             raise ValueError("No emotion column")
 
+
+    def process_single_file(self, filepath):
+        audio_data, sr = librosa.load(filepath, sr=None)
+        pre_emphasized_audio_librosa = self.pre_emphasis_librosa(audio_data)
+        if self.apply_compression:
+            pre_emphasized_audio_librosa = self.cubic_root_compression(pre_emphasized_audio_librosa)
+
+        features_librosa = self.compute_features(pre_emphasized_audio_librosa, sr)
+        node_features, adjacency_matrix = self.compute_graph_features(features_librosa)
+        
+        return node_features, adjacency_matrix
+    
     def get_processed_data(self):
         return self.df
