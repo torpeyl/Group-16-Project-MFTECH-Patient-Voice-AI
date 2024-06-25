@@ -144,4 +144,6 @@ audio {
 .card{
     opacity: 0.95;
     background-color: rgba(237, 246, 251) !important;
+    border-radius: 10px !important;
+    box-shadow: 2px 2px 3px 1px #8a8a8a;
 }
