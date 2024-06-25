@@ -23,8 +23,8 @@ body {
     align-items:center;
 }
 #loading-spinner{
-    width: 4rem;
-    height: 4rem;
+    width: 5rem;
+    height: 5rem;
     margin: auto;
 }
 
@@ -146,4 +146,18 @@ audio {
     background-color: rgba(237, 246, 251) !important;
     border-radius: 10px !important;
     box-shadow: 2px 2px 3px 1px #8a8a8a;
+}
+
+.card-title-container {
+    position: relative;
+}
+.card-title {
+    text-align: center;
+    width: 100%;
+}
+.logo {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 6%;
 }
