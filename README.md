@@ -3,4 +3,5 @@ This project is a colaboration between Medical Frontier Technology and Imperial 
 ## Navigating the repository
 - The Web-Application folder contains the files to run the website.
 - The Model-Training includes the files to produce model files/model weights.
+
 Model files and weights may have to be produced and used with the web-application for the web-application to work.
