@@ -1,0 +1,189 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0; /* Fallback background color */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    max-width: 1200px;
+    background: transparent; /* Transparent background */
+    padding: 20px;
+    border-radius: 10px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+}
+
+.recorder-section {
+    flex: 1 1 400px; /* Flexible width, with minimum width of 400px */
+    margin-right: 20px; /* Margin between sections */
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center align contents */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.recorder-section h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.record-button {
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 50%;
+    background-color: red;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.record-button:active {
+    background-color: darkred;
+}
+
+.record-icon {
+    width: 0;
+    height: 0;
+    border-left: 20px solid white;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+
+.recording .record-icon {
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-color: white;
+    border-radius: 2px;
+}
+
+audio {
+    margin-top: 20px;
+    width: 100%;
+}
+
+#timer {
+    font-size: 24px;
+    margin: 10px 0;
+    color: #333;
+}
+
+#fileInput {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px 0;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.custom-file-upload:hover {
+    background-color: #0056b3;
+}
+
+#fileName {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.questionnaire-section {
+    flex: 1 1 400px; /* Flexible width, with minimum width of 400px */
+    margin-left: 20px; /* Margin between sections */
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.questionnaire-section h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center; /* Center align heading */
+}
+
+#questionnaireForm {
+    width: 100%;
+    text-align: center; /* Center align form elements */
+}
+
+#questionnaireForm label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#questionnaireForm input[type="text"],
+#questionnaireForm input[type="number"],
+#questionnaireForm textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#questionnaireForm textarea {
+    resize: vertical;
+}
+
+#questionnaireForm input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#questionnaireForm button:hover {
+    background-color: #0056b3;
+}
+
+form {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    font: inherit;
+    color: inherit;
+    background: none;
+    box-sizing: border-box;
+    display: inherit;
+    width: 100%;
+}
+

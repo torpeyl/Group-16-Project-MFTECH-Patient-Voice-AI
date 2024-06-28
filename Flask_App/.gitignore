@@ -1,0 +1,8 @@
+# Ignore virtual environment directories
+.venv/
+Illness_Determination_Model/.venv/
+__pycache__/
+Illness_Determination_Model/__pycache__/
+Data2Worddoc/__pycache__
+Disease_Model/__pycache__
+Cough_Model/.venv/
